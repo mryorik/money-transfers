@@ -1,18 +1,13 @@
 package com.example.resource;
 
-import com.example.entity.AccountEntity;
+import com.example.entity.Account;
 import com.example.service.AccountService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-/**
- * Root resource (exposed at "myresource" path)
- */
 @Path("account")
 @Singleton
 public class AccountResource {
@@ -22,7 +17,7 @@ public class AccountResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public AccountEntity get(@PathParam("id") Long id) {
+    public Account get(@PathParam("id") Long id) {
         return accountService.find(id);
     }
 
@@ -30,7 +25,7 @@ public class AccountResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("")
-    public AccountEntity create(AccountEntity account) {
+    public Account create(Account account) {
         return accountService.save(account);
     }
 }

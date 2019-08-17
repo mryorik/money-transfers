@@ -1,8 +1,7 @@
 package com.example;
 
 import com.example.feature.TransactionManager;
-import com.example.service.AccountService;
-import com.example.service.AccountServiceImpl;
+import com.example.service.*;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -41,6 +40,8 @@ public class Main {
                     @Override
                     protected void configure() {
                         bind(AccountServiceImpl.class).to(AccountService.class).to(Singleton.class);
+                        bind(StatsServiceImpl.class).to(StatsService.class).to(Singleton.class);
+                        bind(TransferServiceImpl.class).to(TransferService.class).to(Singleton.class);
                     }
                 });
 

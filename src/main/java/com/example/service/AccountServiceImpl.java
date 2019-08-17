@@ -1,6 +1,6 @@
 package com.example.service;
 
-import com.example.entity.AccountEntity;
+import com.example.entity.Account;
 import com.example.feature.TransactionManager;
 
 import javax.persistence.EntityManager;
@@ -13,16 +13,15 @@ import java.util.Optional;
  */
 public class AccountServiceImpl implements AccountService {
     @Override
-    public AccountEntity find(long id) {
+    public Account find(long id) {
         return Optional
-                .ofNullable(TransactionManager.getEntityManager().find(AccountEntity.class, id))
+                .ofNullable(TransactionManager.getEntityManager().find(Account.class, id))
                 .orElseThrow(() -> new NotFoundException(String.format("Account %d not found", id)));
     }
 
     @Override
-    public AccountEntity save(AccountEntity account) {
+    public Account save(Account account) {
         EntityManager entityManager = TransactionManager.getEntityManager();
-        account.setBalance("0.0");
         entityManager.persist(account);
         entityManager.flush();
         entityManager.refresh(account);
@@ -30,12 +29,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountEntity update(AccountEntity account) {
+    public Account update(Account account) {
         throw new InternalServerErrorException("Not implemented");
     }
 
     @Override
-    public void delete(AccountEntity account) {
+    public void delete(Account account) {
         throw new InternalServerErrorException("Not implemented");
     }
 }

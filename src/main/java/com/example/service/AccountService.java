@@ -1,16 +1,16 @@
 package com.example.service;
 
-import com.example.entity.AccountEntity;
+import com.example.entity.Account;
 
 /**
  * @author yaroslav.frolikov
  */
 public interface AccountService {
-    AccountEntity find(long id);
+    Account find(long id);
 
-    AccountEntity save(AccountEntity account);
+    Account save(Account account);
 
-    AccountEntity update(AccountEntity account);
+    Account update(Account account);
 
-    void delete(AccountEntity account);
+    void delete(Account account);
 }

@@ -1,34 +1,23 @@
 package com.example.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author yaroslav.frolikov
  */
 @Entity
 @Table(name = "accounts")
-public class AccountEntity {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(nullable = false, updatable = false)
-    @NotNull
-    Long id;
+    private Long id;
 
     @Column(nullable = false)
-    @NotNull
-    String name;
+    private String name;
 
     @Column(nullable = false)
-    String balance = "0.0";
-
-    public AccountEntity() {
-        // empty
-    }
-
-    public AccountEntity(long id) {
-        this.id = id;
-    }
+    private Long balance = 0L;
 
     public Long getId() {
         return id;
@@ -38,16 +27,16 @@ public class AccountEntity {
         return name;
     }
 
-    public AccountEntity setName(String name) {
+    public Account setName(String name) {
         this.name = name;
         return this;
     }
 
-    public String getBalance() {
+    public Long getBalance() {
         return balance;
     }
 
-    public AccountEntity setBalance(String balance) {
+    public Account setBalance(Long balance) {
         this.balance = balance;
         return this;
     }

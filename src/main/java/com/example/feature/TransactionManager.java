@@ -61,6 +61,7 @@ public class TransactionManager implements ApplicationEventListener {
                             logger.debug("Committed the transaction for " + resourceMethod);
                         }
                     } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
                         if (tx.isActive()) {
                             logger.debug("Rolling back the transaction for " + resourceMethod);
                             tx.rollback();

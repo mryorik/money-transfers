@@ -16,7 +16,7 @@ public class AccountServiceImpl implements AccountService {
     public Account find(long id) {
         return Optional
                 .ofNullable(TransactionManager.getEntityManager().find(Account.class, id))
-                .orElseThrow(() -> new NotFoundException(String.format("Account %d not found", id)));
+                .orElseThrow(() -> new NotFoundException(String.format("Account %d is not found", id)));
     }
 
     @Override

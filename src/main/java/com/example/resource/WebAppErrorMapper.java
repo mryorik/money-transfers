@@ -9,7 +9,7 @@ import javax.ws.rs.ext.Provider;
  * @author yaroslav.frolikov
  */
 @Provider
-public class AppErrorMapper implements ExceptionMapper<WebApplicationException> {
+public class WebAppErrorMapper implements ExceptionMapper<WebApplicationException> {
     @Override
     public Response toResponse(javax.ws.rs.WebApplicationException exception) {
         return Response

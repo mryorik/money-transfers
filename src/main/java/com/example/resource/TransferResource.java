@@ -2,6 +2,8 @@ package com.example.resource;
 
 import com.example.entity.Transfer;
 import com.example.service.TransferService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -15,6 +17,8 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("transfer")
 public class TransferResource {
+    private Logger logger = LoggerFactory.getLogger(TransferResource.class);
+
     @Inject
     TransferService transferService;
 
@@ -23,6 +27,11 @@ public class TransferResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Transfer makeTransfer(Transfer transfer) {
-        return transferService.makeTransfer(transfer);
+        try {
+            return transferService.makeTransfer(transfer);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw e;
+        }
     }
 }

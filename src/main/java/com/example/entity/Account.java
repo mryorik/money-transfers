@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "accounts")
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long id;
 
@@ -18,6 +18,14 @@ public class Account {
 
     @Column(nullable = false)
     private Long balance = 0L;
+
+    @Version
+    private Long version = 0L;
+
+    public Account setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public Long getId() {
         return id;
@@ -38,6 +46,15 @@ public class Account {
 
     public Account setBalance(Long balance) {
         this.balance = balance;
+        return this;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public Account setVersion(Long version) {
+        this.version = version;
         return this;
     }
 }

@@ -1,7 +1,6 @@
 package com.example.service;
 
 import com.example.entity.Account;
-import com.example.feature.TransactionManager;
 
 import javax.persistence.EntityManager;
 import javax.ws.rs.InternalServerErrorException;
@@ -30,7 +29,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account update(Account account) {
-        throw new InternalServerErrorException("Not implemented");
+        EntityManager entityManager = TransactionManager.getEntityManager();
+        entityManager.merge(account);
+        entityManager.flush();
+        entityManager.refresh(account);
+        return account;
     }
 
     @Override

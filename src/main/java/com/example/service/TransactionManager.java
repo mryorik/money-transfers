@@ -1,4 +1,4 @@
-package com.example.feature;
+package com.example.service;
 
 import org.glassfish.jersey.server.model.ResourceMethod;
 import org.glassfish.jersey.server.monitoring.ApplicationEvent;
@@ -38,37 +38,31 @@ public class TransactionManager implements ApplicationEventListener {
 
             switch (event.getType()) {
                 case RESOURCE_METHOD_START:
-                    try {
-                        if (tx.isActive()) {
-                            logger.debug("Transaction is active for " + resourceMethod);
-                        } else {
-                            tx.begin();
-                            logger.debug("Started a transaction for " + resourceMethod);
-                        }
-                    } catch (Exception e) {
-                        if (tx.isActive()) {
-                            logger.debug("Rolling back the transaction for " + resourceMethod);
-                            tx.rollback();
-                        }
-                        throw e;
+                    if (tx.isActive()) {
+                        logger.debug("Transaction is active for " + resourceMethod);
+                    } else {
+                        tx.begin();
+                        logger.debug("Started a transaction for " + resourceMethod);
                     }
                     break;
 
                 case RESOURCE_METHOD_FINISHED:
-                    try {
-                        if (tx.isActive()) {
+                    if (tx.isActive()) {
+                        if (tx.getRollbackOnly()) {
+                            tx.rollback();
+                            logger.debug("Rolled back the rollback only transaction for " + resourceMethod);
+                        } else {
                             tx.commit();
                             logger.debug("Committed the transaction for " + resourceMethod);
                         }
-                    } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        if (tx.isActive()) {
-                            logger.debug("Rolling back the transaction for " + resourceMethod);
-                            tx.rollback();
-                        }
-                        throw e;
-                    } finally {
-                        em.close();
+                    }
+                    break;
+
+                case ON_EXCEPTION:
+                    if (tx.isActive()) {
+                        logger.error(event.getExceptionCause().toString(), event.getException());
+                        logger.debug("Rolled back the transaction for " + resourceMethod);
+                        tx.rollback();
                     }
                     break;
             }

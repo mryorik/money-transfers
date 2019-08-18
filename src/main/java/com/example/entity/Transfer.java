@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "transfers")
 public class Transfer {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long id;
 
@@ -22,8 +22,16 @@ public class Transfer {
     @Column(nullable = false, updatable = false)
     private Long amount;
 
+    @Version
+    private Long version = 0L;
+
     public Long getId() {
         return id;
+    }
+
+    public Transfer setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public Long getFromAccountId() {
@@ -50,6 +58,15 @@ public class Transfer {
 
     public Transfer setAmount(Long amount) {
         this.amount = amount;
+        return this;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public Transfer setVersion(Long version) {
+        this.version = version;
         return this;
     }
 }

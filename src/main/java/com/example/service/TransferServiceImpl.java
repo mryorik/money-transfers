@@ -37,8 +37,6 @@ public class TransferServiceImpl implements TransferService {
 
             fromAccount.setBalance(fromAccount.getBalance() - transfer.getAmount());
             toAccount.setBalance(toAccount.getBalance() + transfer.getAmount());
-            accountService.update(fromAccount);
-            accountService.update(toAccount);
         } else {
             throw new ClientErrorException("Insufficient funds", Response.Status.BAD_REQUEST);
         }

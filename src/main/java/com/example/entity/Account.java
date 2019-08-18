@@ -22,13 +22,13 @@ public class Account {
     @Version
     private Long version = 0L;
 
+    public Long getId() {
+        return id;
+    }
+
     public Account setId(Long id) {
         this.id = id;
         return this;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {
@@ -51,10 +51,5 @@ public class Account {
 
     public Long getVersion() {
         return version;
-    }
-
-    public Account setVersion(Long version) {
-        this.version = version;
-        return this;
     }
 }

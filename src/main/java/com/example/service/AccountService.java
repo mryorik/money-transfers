@@ -11,6 +11,4 @@ public interface AccountService {
     Account save(Account account);
 
     Account update(Account account);
-
-    void delete(Account account);
 }

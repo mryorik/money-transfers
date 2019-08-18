@@ -3,7 +3,6 @@ package com.example.service;
 import com.example.entity.Account;
 
 import javax.persistence.EntityManager;
-import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 import java.util.Optional;
 
@@ -34,10 +33,5 @@ public class AccountServiceImpl implements AccountService {
         entityManager.flush();
         entityManager.refresh(account);
         return account;
-    }
-
-    @Override
-    public void delete(Account account) {
-        throw new InternalServerErrorException("Not implemented");
     }
 }

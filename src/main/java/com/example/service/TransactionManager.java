@@ -47,6 +47,7 @@ public class TransactionManager implements ApplicationEventListener {
                     break;
 
                 case RESOURCE_METHOD_FINISHED:
+                    em.clear();
                     if (tx.isActive()) {
                         if (tx.getRollbackOnly()) {
                             tx.rollback();
@@ -59,6 +60,7 @@ public class TransactionManager implements ApplicationEventListener {
                     break;
 
                 case ON_EXCEPTION:
+                    em.clear();
                     if (tx.isActive()) {
                         logger.error(event.getExceptionCause().toString(), event.getException());
                         logger.debug("Rolled back the transaction for " + resourceMethod);

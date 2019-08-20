@@ -25,13 +25,4 @@ public class AccountServiceImpl implements AccountService {
         entityManager.refresh(account);
         return account;
     }
-
-    @Override
-    public Account update(Account account) {
-        EntityManager entityManager = TransactionManager.getEntityManager();
-        entityManager.merge(account);
-        entityManager.flush();
-        entityManager.refresh(account);
-        return account;
-    }
 }

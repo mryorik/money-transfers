@@ -9,6 +9,4 @@ public interface AccountService {
     Account find(long id);
 
     Account save(Account account);
-
-    Account update(Account account);
 }
